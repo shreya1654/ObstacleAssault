@@ -16,17 +16,17 @@ void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogTemp, Display, TEXT("have a nice game"));
-	
 }
 
 // Called every frame
 void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	FVector CurrentLocation = GetActorLocation();
 
-	MyVector.Y = MyVector.Y + 1;
-	SetActorLocation(MyVector);
+	CurrentLocation.Y = CurrentLocation.Y + 1;
+
+	SetActorLocation(CurrentLocation);
 
 }
 
