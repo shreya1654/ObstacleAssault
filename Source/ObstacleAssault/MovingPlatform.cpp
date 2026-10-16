@@ -11,10 +11,24 @@ AMovingPlatform::AMovingPlatform()
 
 }
 
+void MyTestFunction(float MyFloat, int MyInt, FString MyString)
+{
+	UE_LOG(LogTemp, Display, TEXT("MyFloat is %f"), MyFloat);
+	UE_LOG(LogTemp, Display, TEXT("MyInt is %d"), MyInt);
+	UE_LOG(LogTemp, Display, TEXT("MyString is %s"), *MyString);
+}
+
+
+
 // Called when the game starts or when spawned
 void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
+
+	FString MyName = GetName();
+	MyTestFunction(200.5f, 19, MyName);
+
+	StartLocation = GetActorLocation();
 
 }
 
@@ -22,11 +36,25 @@ void AMovingPlatform::BeginPlay()
 void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
+	MovePlatform(DeltaTime);
+	RotatePlatform(DeltaTime);
+
+}
+
+void AMovingPlatform::MovePlatform(float DeltaTime)
+{
 	FVector CurrentLocation = GetActorLocation();
 
 	CurrentLocation = CurrentLocation + (PlatformVelocity * DeltaTime);
 
 	SetActorLocation(CurrentLocation);
 
+	DistanceMoved = FVector::Dist(StartLocation, CurrentLocation);
+}
+
+void AMovingPlatform::RotatePlatform(float DeltaTime)
+{
+	// Rotates the platform
 }
 
